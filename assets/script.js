@@ -17,8 +17,6 @@ const slides = [
 	}
 ]
 
-
-
 const btnNext = document.querySelector(".arrow_right")
 const btnPrev = document.querySelector(".arrow_left")
 
@@ -29,3 +27,13 @@ btnPrev.addEventListener('click', function(){
 btnNext.addEventListener('click', function(){
 	console.log("Clic suivant effectué")
 })
+
+let dotContainer = document.querySelector(".dots")
+for (let i = 0; i < slides.length; i++) {
+	let newDot = document.createElement("div")
+	newDot.classList.add("dot")
+	dotContainer.appendChild(newDot)
+}
+
+let dotActive = document.getElementsByClassName("dot")
+dotActive[0].classList.add("dot_selected")
