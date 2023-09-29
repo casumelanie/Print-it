@@ -17,42 +17,63 @@ const slides = [
 	}
 ]
 
-let slideActive = 0
-// Variable à modifier pour changer image + texte + dot
-
-const btnNext = document.querySelector(".arrow_right")
+// Variables flèches slider
 const btnPrev = document.querySelector(".arrow_left")
+const btnNext = document.querySelector(".arrow_right")
 
-btnPrev.addEventListener('click', function(){
-	console.log("Test clic précédent")
-})
-// Évènement au clic sur la flèche de gauche
+// Variable à modifier pour changer image + texte + dot affiché
+let slideActive = 0
 
-btnNext.addEventListener('click', function(nextSlide){
-	console.log("Test clic suivant")
-	function nextSlide (slideActive) {
-		slideActive = slideActive++
-		return slideActive
-	}
-})
-// Évènement au clic sur la flèche de droite
-
+// image affichée sur la bannière
 const imageActive = document.querySelector(".banner-img")
 imageActive.setAttribute("src", slides[slideActive].image)
-// image affichée sur la bannière
 
+// texte affiché sur la bannière 
 const tagLineActive = document.querySelector(".banner-description")
 tagLineActive.innerHTML = slides[slideActive].tagLine
-// texte affiché sur la bannière 
 
+// ajout des dots en fonction de la longueur du tableau slides
 const dotContainer = document.querySelector(".dots")
 for (let i = 0; i < slides.length; i++) {
 	const newDot = document.createElement("div")
 	newDot.classList.add("dot")
 	dotContainer.appendChild(newDot)
 }
-// ajout des dots en fonction de la longueur du tableau slides
 
+// dot sélectionné sur la bannière
 let dotActive = document.getElementsByClassName("dot")
 dotActive[slideActive].classList.add("dot_selected")
-// dot sélectionné sur la bannière
+
+// Évènement au clic sur la flèche de gauche
+btnPrev.addEventListener('click', function(){
+	//console.log("Test clic précédent")
+	if (slideActive === 0) {
+		slideActive = slides.length - 1
+		updateSlide()
+	}else {
+		slideActive--
+		updateSlide()
+	}
+})
+
+// Évènement au clic sur la flèche de droite
+btnNext.addEventListener('click', function(){
+	//console.log("Test clic suivant")
+	if (slideActive === slides.length - 1) {
+		slideActive = 0
+		updateSlide()
+	}else {
+		slideActive++
+		updateSlide()
+	}
+})
+
+// Fonction qui permet d'actualiser la valeur de slideActive dans les éléments concernés
+function updateSlide() {
+	imageActive.setAttribute("src", slides[slideActive].image)
+	tagLineActive.innerHTML = slides[slideActive].tagLine
+	dotActive[slideActive].classList.add("dot_selected")
+}
+
+// --> supprimer la classe selected du dot précédemment actif
+// --> manque l'attribut alt sur les images à rajouter
